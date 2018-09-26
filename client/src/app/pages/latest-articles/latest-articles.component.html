@@ -1,8 +1,16 @@
 <div class="latest-articles">
   <ul class="articles-list">
-    <li *ngFor="let item of articleList">
-      <h3 class="time">{{item.date | date:"yyyy-MM-dd"}}</h3>
-      <h2 class="articles-title" (click)="viewArticle(item)">{{item.title}}</h2>
+    <li *ngFor="let item of articleList" class="list-container" (click)="viewArticle(item)">
+      <div class="artical-title">{{item.title}}</div>
+      <div class="list-bottom-container">
+        <div class="time-container">
+          <img src="../../../assets/clock.png" alt="时间："> {{item.date | date:"yyyy-MM-dd"}}
+        </div>
+        <div class="catalog-container">
+          <img src="../../../assets/catalog-grey.png" alt="标签：">
+          <span class="catalog">{{item.label}}</span>
+        </div>
+      </div>
     </li>
   </ul>
 </div>

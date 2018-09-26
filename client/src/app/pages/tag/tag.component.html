@@ -1,10 +1,17 @@
 <div class="tag">
   <div class="tag-item" *ngFor="let item of tagList" >
-    <h2 class="tag-name">{{item.name}}</h2>
+    <div class="catalog-contaier">
+      <img src="../assets/catalog-grey.png" alt="标签">
+      <span class="catalog">{{item.name}}</span>
+    </div>
     <ul class="article-list">
-      <li *ngFor="let item of item.data" (click)="viewArticle(item)">
-        <h3>{{item.date | date:"yyyy-MM-dd"}}</h3>
-        <h2>{{item.title}}</h2> 
+      <li *ngFor="let item of item.data" (click)="viewArticle(item)" class="list-container">
+        <div class="artical-title">{{item.title}}</div>
+        <div class="list-bottom-container">
+          <div class="time-container">
+            <img src="../../../assets/clock.png" alt="时间："> {{item.date | date:"yyyy-MM-dd"}}
+          </div>
+        </div>
       </li>
     </ul>
   </div>

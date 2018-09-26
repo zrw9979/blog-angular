@@ -111,11 +111,11 @@ export class ViewArticleComponent implements OnInit, OnDestroy {
     };
     const gitment = new Gitment({
       id: this.articleDetail._id,
-      owner: 'linguowei',
-      repo: 'blog-comment',
+      owner: 'ruiwenruiwen',
+      repo: 'sd-comment',
       oauth: {
-        client_id: 'd7c66377574e5e6acfe5',
-        client_secret: '7c52883d0368ee18a496491b9695d506f6890ccf',
+        client_id: 'cc6a9e084f2fe28c97f2',
+        client_secret: '7b15e829fb810f3aa950d1470337497c4edd9d24',
       },
       theme: myTheme
     });

@@ -1,17 +1,14 @@
 <div class="login-wrap">
-  <div class="login-title">
-    <i class="ion-social-angular-outline"></i>
-    BLOG-ADMIN
+  <div class="login">
+    <div class="sign-in-con" v-if="signIn">
+      <p class="login-title">SIGN IN FORM</p>
+      <input type="text" class="login-name" placeholder="username" [(ngModel)]="name">
+      <input type="password" class="login-pwd" placeholder="password" (keydown.enter)="login()" [(ngModel)]="pwd">
+      <div class="sign-con">
+        <button type="submit" class="login-input" (click)="login()">Login</button>
+      </div>
+    </div>
+    <div class="bottom">个人博客系统</div>
   </div>
-  <div class="login-panel">
-    <input type="text" class="login-name" placeholder="username" [(ngModel)]="name">
-    <input type="password" class="login-pwd" placeholder="password" (keydown.enter)="login()" [(ngModel)]="pwd">
-    <button type="submit" class="login-submit" (click)="login()">Login</button>
     <!-- <div class="case-number">tips 账号:test 密码: 123456</div> -->
-  </div>
-</div>
-<div class="github">
-  <a href="https://github.com/linguowei/blog-angular" target="_blank">
-    <i class="ion-social-github"></i>
-  </a>
 </div>

@@ -27,6 +27,7 @@ export class LatestArticlesComponent implements OnInit, OnDestroy {
   ) {
     this.articleListSub = this.articleService.allArticle$.subscribe((data) => {
       this.articleList = data;
+      console.log(data)
     });
   }
 
