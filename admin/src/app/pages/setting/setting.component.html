@@ -1,23 +1,18 @@
-<div class="add-article-wrap">
-  <div class="add-article-title">
-    个人设置
-  </div>
-  <div class="add-article-toolbar">
-    <div class="add-article-toolbar-btn">
-      <app-button [Icon]="'ion-checkmark-circled'" (click)="save('publish')">发布</app-button>
-      <app-button [Icon]="'ion-android-drafts'" (click)="save('draft')">保存草稿</app-button>
+<div class="login-wrap">
+  <div class="login">
+    <div class="sign-in-con">
+      <p class="login-title">资料修改</p>
+      <!-- <input type="text" class="login-name" placeholder="username" [(ngModel)]="name"> -->
+      <input type="password" class="login-pwd" placeholder="password" (keydown.enter)="login()" [(ngModel)]="pwd">
+      <input type="text" placeholder="请输入博客名称" [(ngModel)]="blogname">
+      <input type="text" placeholder="github 地址" [(ngModel)]="github">
+      <input type="text" placeholder="电子邮件" [(ngModel)]="email">
+      <input type="text" placeholder="电话" [(ngModel)]="phone">
+      <div class="sign-con">
+        <button type="submit" class="login-input" (click)="login()">提交更改</button>
+      </div>
     </div>
+    <div class="bottom"></div>
   </div>
-  关于作者
-  <div class="edit" myMarkdownEditor (MarkdownEditorValue)="markdownValueChange($event)">
-    <textarea style="display:none"></textarea>
-  </div>
-  关于博客
-  <div class="edit" myMarkdownEditor (MarkdownEditorValue)="markdownValueChange($event)">
-    <textarea style="display:none"></textarea>
-  </div>
-  联系作者
-  <div class="edit" myMarkdownEditor (MarkdownEditorValue)="markdownValueChange($event)">
-    <textarea style="display:none"></textarea>
-  </div>
+    <!-- <div class="case-number">tips 账号:test 密码: 123456</div> -->
 </div>

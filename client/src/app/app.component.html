@@ -1,43 +1,39 @@
-<div>
-  <div class="top-bar">
-
-    <div class="header" id="home">
-      <div class="container">
-        <!-- <div class="logos">
-          <a href="index.html"><img src="images/logo.png" alt=""></a>
-        </div> -->
-        <div  id="top" class="callbacks_container">
-          <h2>XXX's Blog</h2>
-          <p>欢迎</p>
-        </div>
+<div class="top-bar">
+  <div class="header">
+    <div class="container">
+      <!-- <div class="logos">
+        <a href="index.html"><img src="images/logo.png" alt=""></a>
+      </div> -->
+      <div class="callbacks_container">
+        <h2>{{ blogName || "XXX's Blog" }}</h2>
+        <p>欢迎</p>
       </div>
     </div>
-    
-    <div class="top-nav">
-      <nav>
-        <span class="menu"></span>
-        <ul>
-          <li class="scroll" (click)="tag()">
-            <!-- <a [routerLink]="['/tag']" routerLinkActive="router-active"> -->
-            Tags
-            <!-- </a> -->
-          </li>
-          <li class="scroll" (click)="home()">
-            <!-- <a [routerLink]="['/home']" routerLinkActive="router-active"> -->
-              Home
-            <!-- </a> -->
-          </li>
-          <li class="scroll" (click)="about()">
-            <!-- <a [routerLink]="['/about']" routerLinkActive="router-active"> -->
-              About
-            <!-- </a> -->
-          </li>
-        </ul>
-      </nav>
-    </div>
+  </div>
+  
+  <div class="top-nav">
+    <ul>
+      <li (click)="tag()">
+        <a [routerLink]="['/tag']" routerLinkActive="router-active">
+        Tags
+        </a>
+      </li>
+      <li (click)="home()">
+        <a [routerLink]="['/home']" routerLinkActive="router-active">
+          Home
+        </a>
+      </li>
+      <li (click)="about()">
+        <a [routerLink]="['/about']" routerLinkActive="router-active">
+          About
+        </a>
+      </li>
+    </ul>
   </div>
 </div>
 <div class="content">
   <router-outlet></router-outlet>
 </div>
-
+<div class="footer">
+  © 2018 Specialised Design
+</div>

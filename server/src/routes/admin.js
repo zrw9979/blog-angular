@@ -31,6 +31,56 @@ router.post('/login', async (ctx, next) => {
 	}
 })
 
+router.post('/setting', async (ctx, next) => {
+  await new Promise((resolve, reject) => {
+    DB.User.update({
+      name: ctx.request.body.name, 
+    }, ctx.request.body, (err, docs) => {
+      if(err){
+        reject(err)
+      }else{
+        resolve(docs)
+      }
+    })
+  }).then((success) => {
+    ctx.response.body = {
+      code: 200,
+      msg: '修改成功',
+      data: ctx.request.body
+    }
+  })
+})
+
+router.post('/addUser', async (ctx, next) => {
+  await new DB.User(ctx.request.body).save((err, data) => {
+    if(err){
+      ctx.throw(500)
+      return
+    }
+    console.log(data)
+    ctx.response.body = {
+      code: 200,
+      msg: '修改成功',
+      data
+    }
+  })
+})
+
+router.get('/userInfo', async (ctx, next) => {
+  await DB.User.find({}, (err, data) => {
+    if (err) {
+      ctx.throw(500)
+      return;
+    }
+    console.log(data)
+    ctx.response.body = {
+      code: 200,
+      msg: 'success',
+      data
+    }
+  })
+})
+
 router.get('/logout', async (ctx, next) => {
 	ctx.session = null;
 	ctx.response.body = {

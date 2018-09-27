@@ -13,9 +13,19 @@ const tagSchema = new db.Schema({
   tagNumber: Number,
 })
 
+const userSchema = new db.Schema({
+  name: String,
+  pwd: String,
+  blogname: String,
+  github: String,
+  email: String,
+  phone: String
+})
+
 const Models = {
   Article: db.model('Article', articleSchema),
-  Tag: db.model('TagList', tagSchema)
+  Tag: db.model('TagList', tagSchema),
+  User: db.model('User', userSchema)
 }
 
 module.exports = Models

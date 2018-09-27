@@ -1,74 +1,79 @@
 import { Router } from '@angular/router';
 import { MsgService } from './../../services/msg/msg.service';
-import { Subscription } from 'rxjs/Subscription';
-import { ArticleService } from '../../services/article/article.service';
-import { TagService } from './../../services/tag/tag.service';
-import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-setting',
   templateUrl: './setting.component.html',
-  styleUrls: ['./setting.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./setting.component.scss']
 })
-export class SettingComponent implements OnInit, OnDestroy {
-  dropdownMenuSub: Subscription;
-  dropdownMenu = [];
-  title = '';
-  content = '';
-  tagList = [];
+export class SettingComponent implements OnInit {
+  name = 'test';
+  pwd = '123456';
+  blogname = '';
+  github = '';
+  email = '';
+  phone = '';
+  hasUser = false;
 
   constructor(
-    private tagService: TagService,
-    private articleService: ArticleService,
+    private http: HttpClient,
     private msg: MsgService,
     private router: Router
   ) { }
 
   ngOnInit() {
-    this.dropdownMenuSub = this.tagService.tagList$.subscribe((data) => {
-      this.dropdownMenu = data;
+    this.http.get('/api/admin/userInfo').subscribe((res) => {
+      if (res['code'] !== 200) {
+        this.msg.info( res['msg'] );
+      } else {
+        const userArr = res['data']
+        if (userArr.length > 0) {
+          const user = userArr[0]
+          this.name = user.name;
+          this.pwd = user.pwd;
+          this.blogname = user.blogname;
+          this.github = user.github;
+          this.email = user.email;
+          this.phone = user.phone;
+          this.hasUser = true;
+        }
+      }
     });
   }
 
-  ngOnDestroy() {
-    this.dropdownMenuSub.unsubscribe();
-  }
-
-  selectItem(data) {
-    this.tagList = [];
-    this.tagList.push(data);
-  }
-
-  delectLabelItem(index) {
-    this.tagList.splice(index, 1);
-  }
-
-  markdownValueChange(data) {
-    this.content = data;
-  }
-
-  // 保存文章
-  save(articleState) {
-    if (this.title === '' || this.content === '' || this.tagList.length === 0) {
-      this.msg.info('请输入完整的文章信息！');
-    } else {
-      const sub = this.articleService._addArticle({
-        title: this.title,
-        articleContent: this.content,
-        label: this.tagList[0].tagName,
-        date: new Date(),
-        state: articleState
+  login() {
+    if (this.hasUser) {
+      this.http.post('/api/admin/setting', {
+        name: this.name,
+        pwd: this.pwd,
+        blogname: this.blogname,
+        github: this.github,
+        email: this.email,
+        phone: this.phone
       }).subscribe((res) => {
-        if (res['code'] === 200) {
-          this.msg.info('保存成功！');
-          this.articleService._updateAllArticle();
-          res['data'].label = this.tagList;
-          localStorage.setItem('articleItemInfo', JSON.stringify(res['data']));
-          this.router.navigate(['/admin/view']);
+        if (res['code'] !== 200) {
+          this.msg.info( res['msg'] );
+        } else {
+          this.router.navigate(['/admin/add']);
+        }
+      });
+    } else {
+      this.http.post('/api/admin/addUser', {
+        name: this.name,
+        pwd: this.pwd,
+        blogname: this.blogname,
+        github: this.github,
+        email: this.email,
+        phone: this.phone
+      }).subscribe((res) => {
+        if (res['code'] !== 200) {
+          this.msg.info( res['msg'] );
+        } else {
+          this.router.navigate(['/admin/add']);
         }
       });
     }
   }
-
 }

@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -20,14 +20,24 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   ],
 })
 export class AppComponent {
+  blogName = ''
+
   dropdownMenu = {
     state: 'inactive'
   };
 
   constructor(
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) {
 
+  }
+
+  ngOnInit() {
+    this.http.get('/api/client/userInfo')
+      .subscribe((res) => {
+        this.blogName = res['data'].blogname
+      });
   }
 
   home() {
