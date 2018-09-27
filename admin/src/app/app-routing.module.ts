@@ -1,6 +1,7 @@
 import { IndexComponent } from './pages/index/index.component';
 import { ViewComponent } from './pages/view/view.component';
 import { EditComponent } from './pages/edit/edit.component';
+import { SettingComponent } from './pages/setting/setting.component';
 import { ClassificationComponent } from './pages/classification/classification.component';
 import { TagComponent } from './pages/tag/tag.component';
 import { AddComponent } from './pages/add/add.component';
@@ -31,6 +32,11 @@ const routes: Routes = [
   {
     path: 'admin/edit',
     component: EditComponent,
+    children: []
+  },
+  {
+    path: 'admin/setting',
+    component: SettingComponent,
     children: []
   },
   {

@@ -1,0 +1,23 @@
+<div class="add-article-wrap">
+  <div class="add-article-title">
+    个人设置
+  </div>
+  <div class="add-article-toolbar">
+    <div class="add-article-toolbar-btn">
+      <app-button [Icon]="'ion-checkmark-circled'" (click)="save('publish')">发布</app-button>
+      <app-button [Icon]="'ion-android-drafts'" (click)="save('draft')">保存草稿</app-button>
+    </div>
+  </div>
+  关于作者
+  <div class="edit" myMarkdownEditor (MarkdownEditorValue)="markdownValueChange($event)">
+    <textarea style="display:none"></textarea>
+  </div>
+  关于博客
+  <div class="edit" myMarkdownEditor (MarkdownEditorValue)="markdownValueChange($event)">
+    <textarea style="display:none"></textarea>
+  </div>
+  联系作者
+  <div class="edit" myMarkdownEditor (MarkdownEditorValue)="markdownValueChange($event)">
+    <textarea style="display:none"></textarea>
+  </div>
+</div>

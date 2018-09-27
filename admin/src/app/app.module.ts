@@ -11,6 +11,7 @@ import { GlobalResponseInterceptor } from './interceptor/global-response-interce
 import { AppComponent } from './app.component';
 import { AddComponent } from './pages/add/add.component';
 import { EditComponent } from './pages/edit/edit.component';
+import { SettingComponent } from './pages/setting/setting.component';
 import { ViewComponent } from './pages/view/view.component';
 import { TagComponent } from './pages/tag/tag.component';
 import { ClassificationComponent, ClassificationTabsContentHeightDirective } from './pages/classification/classification.component';
@@ -38,6 +39,7 @@ import { IndexComponent } from './pages/index/index.component';
     AppComponent,
     AddComponent,
     EditComponent,
+    SettingComponent,
     ViewComponent,
     TagComponent,
     ClassificationComponent,

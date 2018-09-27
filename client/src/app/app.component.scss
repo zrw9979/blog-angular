@@ -43,6 +43,88 @@
   // -webkit-overflow-scrolling: touch;
 }
 
+
+.header{
+	background:url(../assets/banner.jpg)no-repeat;
+	background-size:cover;
+	-webkit-background-size:cover;
+	-o-background-size:cover;
+	-moz-background-size:cover;
+	-ms-background-size:cover;
+	min-height:700px;
+	text-align:center;
+	padding:4em 0 0 0;
+}
+.logos{
+	margin-top:5em;
+}
+
+.top-nav ul{
+  position: relative;
+	margin:0;
+	padding:0;
+	background:#212022;
+	text-align:center;
+}
+.top-nav ul li{
+  cursor: pointer;
+	display:inline-block;
+  color:#FFF;
+  font-weight:400;
+  font-size:1.2rem;
+  transition:0.5 ease;
+}
+.top-nav ul li a{
+  display:block;
+  padding:2rem 1.5rem;
+  // margin-bottom: .5rem;
+	text-decoration:none;
+	color:#FFF;
+	font-weight:400;
+	font-size:1.2em;
+	transition:0.5 ease;
+	text-transform:uppercase;
+}
+.nav-input{
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+// .top-nav ul li input:focus{
+//   border-bottom: 5px solid #fff;
+// }
+.fixed{
+	position: fixed;
+	top: 0;
+	width: 100%;
+	margin: 0 auto;
+	z-index: 1;
+}
+.nav-palceholder{
+	margin:0 0 40px 0;
+}
+
+.callbacks_container {
+  position: relative;
+  float: left;
+  width: 100%;
+}
+.callbacks_container h2{
+	font-size:3rem;
+	margin:10rem 0 0.5rem;
+	color:#fff;
+	font-weight:700;
+}
+.callbacks_container p{
+	font-size:1.8rem;
+	color:#fff;
+	font-weight:400;
+	margin-bottom:1em;
+}
+.router-active {
+  font-size: 2rem;
+  border-bottom: solid 5px #fff;
+}
 .footer{
   display: block;
   position: fixed;
