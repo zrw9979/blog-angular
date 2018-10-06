@@ -28,7 +28,6 @@
 
 .view-article-wrap{
   max-height: 100vh;
-  margin-top: -124px;
   overflow: scroll;
   -webkit-overflow-scrolling: touch;
   .view-article{
@@ -44,24 +43,31 @@
       color: #444;
       text-align: center;
     }
-    p{
+    .list-bottom-container {
       text-align: center;
-      font-family: "Montserrat", "Helvetica Neue", "Hiragino Sans GB", "LiHei Pro", Arial, sans-serif;
-      font-size: 13px;
-      color: #999;
-      margin: 0 0 30px;
-      letter-spacing: 1px;
-      span{
-        display: inline-block;
-        padding: 3px 6px;
-        border-radius: 3px;
-        border: 1px solid #ccc;
-        margin-left: 30px;
+      margin: 0 auto;
+      
+      div {
+        margin-right: 1rem;
+        display: inline-flex;
+        align-items: center;
+      
+        img {
+          width: 1rem;
+          height: 1rem;
+          margin-right: .5rem;
+        }
       }
     }
+
+    .list-bottom-container:last-child {
+      margin-right: 0;
+    }
+
     .content{
       line-height: 1.8em;
       font-family: "Roboto", "Helvetica Neue", "Hiragino Sans GB", "LiHei Pro", Arial, serif;
+      margin: 2rem auto !important;
       text-rendering: optimizelegibility;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -265,4 +271,5 @@
   .progress-bar{
     // display: none;
   }
+  
 }

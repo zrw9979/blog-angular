@@ -18,6 +18,7 @@ export class ArticleService {
   getAllArticle() {
     this.http.get('/api/client/articleList')
       .subscribe((res) => {
+        console.log(res)
         this.allArticle$.next(res['data'].reverse());
       });
   }

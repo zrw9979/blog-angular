@@ -42,6 +42,8 @@ interface EditNote {
   articleContent: string;
   label: string;
   date: Date;
+  pv: Number;
+  uv: Number;
   state: string;
   _id?: string;
 }

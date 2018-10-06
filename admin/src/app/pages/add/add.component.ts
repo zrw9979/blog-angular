@@ -58,6 +58,8 @@ export class AddComponent implements OnInit, OnDestroy {
         articleContent: this.content,
         label: this.tagList[0].tagName,
         date: new Date(),
+        pv: 0,
+        uv: 0,
         state: articleState
       }).subscribe((res) => {
         if (res['code'] === 200) {

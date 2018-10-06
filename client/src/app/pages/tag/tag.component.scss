@@ -21,8 +21,15 @@
         font-size: 1.5rem;
         margin-right: .5rem;
       }
+
+    }
+    .checkbox {
+      width: 0;
+      height: 0;
+      opacity: 0;
     }
     .article-list{
+      display: none;
       margin-top: 10px;
       li{
         cursor: pointer;
@@ -50,6 +57,7 @@
           div {
             display: inline-flex;
             align-items: center;
+            margin-right: 1rem;
           
             img {
               width: 1rem;
@@ -59,13 +67,17 @@
           }
         }
   
-        .time-container {
-          margin-right: 1rem;
+        .list-bottom-container:last-child {
+          margin-right: 0;
         }
       }
     }
   }
   
+}
+
+.checkbox:checked + ul {
+  display: block !important;
 }
 
 // 如果屏幕小于768px

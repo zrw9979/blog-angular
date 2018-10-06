@@ -1,0 +1,125 @@
+.about{
+  max-width: 600px;
+  margin: 0px auto;
+  padding: 0 30px 50px;
+  position: relative;
+  .about-item{
+    margin: 35px 0;
+  }
+}
+.banner-text div {
+	background: #062f3c;
+	padding:5px 0px;
+}
+.banner-text input[type="text"] {
+	display: inline-block;
+	outline: none;
+	padding: 10px 20px;
+	width: 73%;
+	border: 0;
+	-webkit-appearance: none;
+	background: #062f3c;
+	font-family: 'Lato', sans-serif;
+	font-size: 18px;
+	color: #fff;
+	font-weight: 100;
+}
+.tlinks{text-indent:-9999px;height:0;line-height:0;font-size:0;overflow:hidden;}
+.banner-text input[type="submit"] {
+	border: 0;
+	padding: 5px 20px;
+	background: #ee6123;
+	color: #fff;
+	outline: none;
+	-webkit-appearance: none;
+	cursor: pointer;
+	font-family: 'Lato', sans-serif;
+	font-size: 26px;
+	font-weight: 600;
+	letter-spacing: 3px;
+	font-style: italic;
+	margin-top: 4px;
+}
+.banner-text input[type="submit"]:hover{
+	color:#61b3de;
+	transition:0.5s all;
+	-webkit-transition:0.5s all;
+	-moz-transition:0.5s all;
+	-o-transition:0.5s all;
+	-ms-transition:0.5s all;
+}
+
+.articles-list{
+  li{
+    position: relative;
+    padding: 30px 0 30px;
+    border-bottom: 1px solid #e6e6e6;
+    .list-container {
+      width: 50%;
+      margin: 3rem auto;
+      padding: 1rem 2rem;
+      border: 3px solid #bfbfbf;
+      border-radius: 1rem;
+    }
+    
+    .artical-title {
+      cursor: pointer;
+      margin-bottom: 1rem;
+      color: #707070;
+      font-size: 2rem;
+      text-align: left;
+    }
+    
+    .list-bottom-container {
+      text-align: left;
+      
+      div {
+        margin-right: 1rem;
+        display: inline-flex;
+        align-items: center;
+      
+        img {
+          width: 1rem;
+          height: 1rem;
+          margin-right: .5rem;
+        }
+      }
+    }
+
+    .list-bottom-container:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+// 如果屏幕小于768px
+@media screen and (max-width: 768px) {
+  .latest-articles{
+    padding: 5vw 10vw;
+    margin: 0;
+    width: 80vw;
+    padding-top: 75px;
+    padding-bottom: 40px;
+    .articles-list{
+      li{
+        margin: 10px 0;
+        padding: 18px 0 20px;
+        h3{
+          font-size: 13px;
+          color: #999;
+          font-size: 12px;
+          position: static;
+          margin-bottom: 10px;
+        }
+        h2{
+          font-size: 16px;
+          margin-left: 0;
+          color: #444;
+          font-weight: 400;
+          letter-spacing: 1px;
+        }
+        
+      }
+    }
+  }
+}

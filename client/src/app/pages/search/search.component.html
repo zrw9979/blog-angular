@@ -1,8 +1,11 @@
-<div class="latest-articles">
-  <div class="selectSort">
-    <div class="sortSelection" (click)="sortByPv()">点击率</div>
-    <div class="sortSelection" (click)="sortByTime()">时间</div>
-    <div class="sortSelection" (click)="sortByUv()">点赞量</div>
+<div class="about">
+  <div class="about-item">
+    <div class="banner-text">
+      <div>
+        <input type="text" placeholder="Search here..." [(ngModel)]="searchContent">
+        <input type="submit" value="Find" (click)="search()">
+      </div>
+    </div>
   </div>
   <ul class="articles-list">
     <li *ngFor="let item of articleList" class="list-container" (click)="viewArticle(item)">

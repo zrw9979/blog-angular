@@ -8,6 +8,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AboutComponent implements OnInit {
   user = {};
+  email = '';
+
   constructor(
     private http: HttpClient
   ) {}
@@ -20,4 +22,15 @@ export class AboutComponent implements OnInit {
       });
   }
 
+  subscribe() {
+    const emailReg = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/
+    if (this.email.trim() && emailReg.test(this.email)) {
+      // TODO send email
+      console.log(this.email)
+    } else {
+      alert('请输入正确的邮件格式')
+      return
+    }
+    this.email = ''
+  }
 }

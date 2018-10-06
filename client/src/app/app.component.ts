@@ -55,6 +55,16 @@ export class AppComponent {
     this.dropdownMenu.state = 'inactive';
   }
 
+  search() {
+    this.router.navigate(['/search']);
+    this.dropdownMenu.state = 'inactive';
+  }
+
+  link() {
+    this.router.navigate(['/link']);
+    this.dropdownMenu.state = 'inactive';
+  }
+
   toggleDropdownMenu(e) {
     this.dropdownMenu.state === 'active' ? this.dropdownMenu.state = 'inactive' : this.dropdownMenu.state = 'active';
     e.stopPropagation();

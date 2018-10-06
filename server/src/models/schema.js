@@ -5,7 +5,9 @@ const articleSchema = new db.Schema({
 	date: Date,
 	articleContent: String,
 	state: String,
-	label: String,
+  label: String,
+  pv: Number,
+  uv: Number
 })
 
 const tagSchema = new db.Schema({

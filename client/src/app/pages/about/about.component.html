@@ -1,14 +1,45 @@
 <div class="about">
-  <div class="about-item">
-    <h2 class="about-name">联系作者</h2>
-    <ul>
-      <li>电子邮箱：{{user.email || 'XXXX@xx.com'}}</li>
-      <li>GitHub： 
-        <a href="{{user.github}}" target="_black">{{user.github || 'XXXXX.github.con'}}</a>
-      </li>
-      <li>Phone： 
-        {{user.phone || '1**********'}}
-      </li>
-    </ul>
+  <div id="contact" class="text-center">
+    <div class="container text-center">
+      <div class="col-md-4">
+        <h3>电子邮箱</h3>
+        <div class="contact-item">
+          <!-- <p>Please send</p> -->
+          <p>{{user.email || 'XXXX@xx.com'}}</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <h3>GitHub</h3>
+        <div class="contact-item">
+          <!-- <p>welcome to start</p> -->
+          <p><a href="{{user.github}}" target="_black">{{user.github || 'XXXXX.github.con'}}</a></p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <h3>Phone</h3>
+        <div class="contact-item">
+          <!-- <p></p> -->
+          <p>{{user.phone || '1**********'}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="container">
+      <div class="footer-main">
+        <h3>订阅我的博客</h3>
+      <div class="footer-bottom">
+        <div class="col-md-4 footer-bottom-left">
+          <img src="../../../assets/msg.png" alt="">
+        </div>
+        <div class="col-md-8 footer-bottom-right">
+          <small>Enter Your Email here</small>
+          <div class="contact-text">
+            <input type="text" placeholder="Email" [(ngModel)]="email">
+            <input type="submit" value="SUBMIT" (click)="subscribe()">
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

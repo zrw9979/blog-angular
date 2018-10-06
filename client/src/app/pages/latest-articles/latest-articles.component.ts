@@ -39,8 +39,33 @@ export class LatestArticlesComponent implements OnInit, OnDestroy {
 
   }
 
+  sortByPv() {
+    this.http.get('/api/client/listByPv')
+      .subscribe((res) => {
+        this.articleList = res['data']
+        console.log(this.articleList)
+      });
+  }
+
+  sortByUv() {
+    this.http.get('/api/client/listByUv')
+      .subscribe((res) => {
+        this.articleList = res['data']
+        console.log(this.articleList)
+      });
+  }
+
+  sortByTime() {
+    this.articleListSub = this.articleService.allArticle$.subscribe((data) => {
+      this.articleList = data;
+      console.log(data)
+    });
+  }
+
   viewArticle(data) {
-    localStorage.setItem('articleDetail', JSON.stringify(data));
+    let newData = data;
+    newData.pv += 1;
+    localStorage.setItem('articleDetail', JSON.stringify(newData));
     this.router.navigate(['/view', data._id]);
   }
 

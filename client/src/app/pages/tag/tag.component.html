@@ -1,15 +1,24 @@
 <div class="tag">
   <div class="tag-item" *ngFor="let item of tagList" >
-    <div class="catalog-contaier">
+    <label for="{{item.name}}" class="catalog-contaier">
       <img src="../assets/catalog-grey.png" alt="标签">
       <span class="catalog">{{item.name}}</span>
-    </div>
+    </label>
+    <input type="checkbox" id="{{item.name}}" class="checkbox">
     <ul class="article-list">
       <li *ngFor="let item of item.data" (click)="viewArticle(item)" class="list-container">
         <div class="artical-title">{{item.title}}</div>
         <div class="list-bottom-container">
           <div class="time-container">
             <img src="../../../assets/clock.png" alt="时间："> {{item.date | date:"yyyy-MM-dd"}}
+          </div>
+          <div class="hot-container">
+            <img src="../../../assets/hot.png" alt="热度：">
+            <span class="hot">{{item.pv || 0}}</span>
+          </div>
+          <div class="like-container">
+            <img src="../../../assets/like-grey.png" alt="点赞：">
+            <span class="like">{{item.uv || 0}}</span>
           </div>
         </div>
       </li>

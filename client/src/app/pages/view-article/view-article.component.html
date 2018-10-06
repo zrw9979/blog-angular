@@ -1,16 +1,31 @@
 <div class="view-article-wrap">
   <div class="view-article">
     <h1>{{articleDetail.title}}</h1>
-    <p>{{articleDetail.date | date:"yyyy-MM-dd HH:mm:ss"}} <span>{{articleDetail.label}}</span></p>
+    <div class="list-bottom-container">
+      <div class="time-container">
+        <img src="../../../assets/clock.png" alt="时间："> {{articleDetail.date | date:"yyyy-MM-dd"}}
+      </div>
+      <div class="catalog-container">
+        <img src="../../../assets/catalog-grey.png" alt="标签：">
+        <span class="catalog">{{articleDetail.label}}</span>
+      </div>
+      <div class="hot-container">
+        <img src="../../../assets/hot.png" alt="标签：">
+        <span class="hot">{{articleDetail.pv || 0}}</span>
+      </div>
+      <div class="like-container" (click)="likeThisArticle()">
+        <img *ngIf="likeArticle" src="../../../assets/like.png" alt="点赞：">
+        <img *ngIf="!likeArticle" src="../../../assets/like-grey.png" alt="点赞：">
+        <span class="like">{{articleDetail.uv || 0}}</span>
+      </div>
+    </div>
     <div class="content" [innerHTML]="articleDetail.articleContent">
     </div>
   </div>
   <div class="comment">
     <div class="gitment_id"></div>
   </div>
-  <div class="view-article-footer">
-    © 2018 Specialised Design
-  </div>
+  <div class="view-article-footer">.</div>
 </div>
 
 <div class="progress-bar"></div>

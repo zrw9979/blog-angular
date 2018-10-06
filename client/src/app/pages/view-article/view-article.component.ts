@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { ArticleService } from '../../services/article/article.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import marked from 'marked';
 import highlight from 'highlight.js';
 import Gitment from '../../../assets/gitment/gitment.js';
@@ -21,15 +22,19 @@ export class ViewArticleComponent implements OnInit, OnDestroy {
     label: '',
     state: '',
     title: '',
+    pv: 0,
+    uv: 0,
     __v: 0,
     _id: ''
   };
   articleId = '';
   articleServiceSub: Subscription;
+  likeArticle = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private articleService: ArticleService
+    private articleService: ArticleService,
+    private http: HttpClient
   ) { }
 
   ngOnInit() {
@@ -39,7 +44,13 @@ export class ViewArticleComponent implements OnInit, OnDestroy {
     const topBar = <HTMLElement>document.querySelector('.top-bar');
     topBar.style.display = 'none';
 
-    this.articleDetail = JSON.parse(localStorage.getItem('articleDetail'));
+    let currentArticle = JSON.parse(localStorage.getItem('articleDetail'));
+    console.log(currentArticle)
+
+    let likeThisArticle = JSON.parse(localStorage.getItem(`like${this.articleDetail._id}`));
+    this.likeArticle = likeThisArticle ? true : false;
+    
+    this.articleDetail = currentArticle;
     if (this.articleDetail === null) {
       this.articleServiceSub = this.articleService.allArticle$.subscribe((data) => {
         data.forEach((item: ArticleDetail) => {
@@ -51,6 +62,9 @@ export class ViewArticleComponent implements OnInit, OnDestroy {
         });
       });
     } else {
+      this.http.post('/api/client/articleAddPv', currentArticle).subscribe((res) => {
+        console.log(res)
+      });
       this.renderHighlight();
       this.renderGitment();
     }
@@ -96,6 +110,29 @@ export class ViewArticleComponent implements OnInit, OnDestroy {
     });
   }
 
+  likeThisArticle() {
+    let currentArticle = JSON.parse(localStorage.getItem('articleDetail'));
+    if (this.likeArticle) {
+      localStorage.removeItem(`like${this.articleDetail._id}`);
+      currentArticle.uv -= 1;
+      this.http.post('/api/client/articleAddUv', currentArticle).subscribe((res) => {
+        this.likeArticle = false;
+        this.articleDetail = currentArticle;
+        localStorage.setItem('articleDetail', JSON.stringify(currentArticle));
+        console.log(res)
+      });
+    } else {
+      localStorage.setItem(`like${this.articleDetail._id}`, 'true');
+      currentArticle.uv += 1;
+      this.http.post('/api/client/articleAddUv', currentArticle).subscribe((res) => {
+        this.likeArticle = true;
+        this.articleDetail = currentArticle;
+        localStorage.setItem('articleDetail', JSON.stringify(currentArticle));
+        console.log(res)
+      });
+    }
+  }
+
   // 评论系统
   private renderGitment() {
     const el = <HTMLElement>document.querySelector('.gitment_id');
@@ -128,6 +165,8 @@ interface ArticleDetail {
   date: string;
   label: string;
   state: string;
+  pv: Number;
+  uv: Number;
   title: string;
   __v: number;
   _id: string;

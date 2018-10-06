@@ -13,12 +13,17 @@
   
   <div class="top-nav">
     <ul>
+      <li (click)="search()">
+        <a [routerLink]="['/search']" routerLinkActive="router-active">
+          Search
+        </a>
+      </li>
       <li (click)="tag()">
         <a [routerLink]="['/tag']" routerLinkActive="router-active">
         Tags
         </a>
       </li>
-      <li (click)="home()">
+      <li (click)="list()">
         <a [routerLink]="['/home']" routerLinkActive="router-active">
           Home
         </a>
@@ -28,6 +33,11 @@
           About
         </a>
       </li>
+      <li (click)="link()">
+        <a [routerLink]="['/link']" routerLinkActive="router-active">
+          link
+        </a>
+      </li>
     </ul>
   </div>
 </div>
@@ -35,5 +45,5 @@
   <router-outlet></router-outlet>
 </div>
 <div class="footer">
-  © 2018 Specialised Design
+  .
 </div>
