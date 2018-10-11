@@ -102,19 +102,28 @@ router.all('*', async (ctx, next) => {
 
 // 保存文章
 router.post('/addArticle', async (ctx, next) => {
-  new DB.Article(ctx.request.body).save((err, docs) => {
-    if(err){
-      ctx.throw(500)
-      return
-    }
-    let emailResult = ''
-    // let emailResult = onSendEmail(ctx.request.body)
-    ctx.response.body = {
-      code: 200,
-      msg: `保存成功，邮件发送${emailResult}`,
-      data: docs
-    }
-  })
+  let emailResult = await onSendEmail(ctx.request.body)
+  if (!emailResult) {
+    ctx.throw(500)
+    return
+  }
+  ctx.response.body = {
+    code: 200,
+    msg: `保存成功，邮件发送${emailResult}`,
+    data: docs
+  }
+  // new DB.Article(ctx.request.body).save((err, docs) => {
+  //   if(err){
+  //     ctx.throw(500)
+  //     return
+  //   }
+  //   let emailResult = ''
+  //   ctx.response.body = {
+  //     code: 200,
+  //     msg: `保存成功，邮件发送${emailResult}`,
+  //     data: docs
+  //   }
+  // })
 })
 
 // 删除文章
@@ -215,24 +224,25 @@ router.post('/deleteTag', async (ctx, next) => {
   })
 })
 
-const onSendEmail = (req) => {
+const onSendEmail = async (req) => {
   console.log('on send email')
-  sendEmail(req)
-  // DB.Fans.find({}, (err, docs) => {
-  //   if (docs && docs.length > 0) {
-  //   } else {
-  //     return 'failed'
-  //   }
-  // })
+  DB.Fans.find({}, async (err, docs) => {
+    if (docs && docs.length > 0) {
+     const result = await sendEmail(req, docs)
+     return result
+    } else {
+      return false
+    }
+  })
 }
 
 let serveremail = {
   user: "493143643@qq.com",
   password: "ojhwdeiigetcbgbb",
-  service: 'qq'
+  service: 'smtp.qq.com'
 }
 
-const sendEmail = async () => {
+const sendEmail = async (req, receivers) => {
   console.log('send email')
   nodemailer.createTestAccount((err, account) => {
     // create reusable transporter object using the default SMTP transport
@@ -250,7 +260,7 @@ const sendEmail = async () => {
     // setup email data with unicode symbols
     let mailOptions = {
       from: serveremail.user, // sender address  
-      to: "493143643@qq.com", // list of receivers 接收者地址
+      to: receivers.join(', '), // list of receivers 接收者地址
       subject: 'Hello friend', // Subject line                      // 邮件标题
       text: 'this is nodemailer test', // plain text body
       html: '<b>Big test</b>' // html body   //邮件内容
@@ -258,11 +268,12 @@ const sendEmail = async () => {
 
     transporter.sendMail(mailOptions, (error, info) => { //发送邮件
       if (error) {
-        return console.log(error);
+        console.log(error);
+        return false
       }
       console.log('Message sent: %s', info.messageId);//成功回调
       console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-
+      return true
       // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
       // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
     });
