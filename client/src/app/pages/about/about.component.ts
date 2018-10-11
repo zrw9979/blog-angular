@@ -31,6 +31,14 @@ export class AboutComponent implements OnInit {
       alert('请输入正确的邮件格式')
       return
     }
-    this.email = ''
+    this.http.post('/api/client/addFansEmail', {email: this.email})
+      .subscribe((res) => {
+        if (res['code'] !== 200) {
+          alert(res['msg'])
+        } else {
+          alert('订阅成功')
+          this.email = ''
+        }
+      });
   }
 }

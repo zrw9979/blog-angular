@@ -1,8 +1,25 @@
 <div class="latest-articles">
-  <div class="selectSort">
-    <div class="sortSelection" (click)="sortByPv()">点击率</div>
-    <div class="sortSelection" (click)="sortByTime()">时间</div>
-    <div class="sortSelection" (click)="sortByUv()">点赞量</div>
+  <div id="contact" class="text-center">
+    <div class="container text-center">
+      <div class="col-md-4">
+        <h3 class="sortSelection" (click)="sortByPv()">点击率</h3>
+        <div class="contact-item">
+          <p>按照点击率降序排序</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <h3 class="sortSelection" (click)="sortByTime()">时间</h3>
+        <div class="contact-item">
+          <p>按照时间降序排序</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <h3 class="sortSelection" (click)="sortByUv()">点赞量</h3>
+        <div class="contact-item">
+          <p>按照点赞量降序排序</p>
+        </div>
+      </div>
+    </div>
   </div>
   <ul class="articles-list">
     <li *ngFor="let item of articleList" class="list-container" (click)="viewArticle(item)">

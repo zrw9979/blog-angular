@@ -23,6 +23,8 @@ export class EditComponent implements OnInit, OnDestroy {
     label: [],
     title: '',
     state: '',
+    pv: 0,
+    uv: 0,
     __v: Number,
     _id: ''
   };
@@ -72,6 +74,8 @@ export class EditComponent implements OnInit, OnDestroy {
         label: this.tagList[0].tagName,
         date: new Date(this.articleInfo.date),
         state: articleState,
+        pv: this.articleInfo.pv,
+        uv: this.articleInfo.uv,
         _id: this.articleInfo._id
       }).subscribe((res) => {
         if (res['code'] === 200) {

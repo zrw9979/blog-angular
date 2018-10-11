@@ -24,10 +24,15 @@ const userSchema = new db.Schema({
   phone: String
 })
 
+const fansSchema = new db.Schema({
+  email: String
+})
+
 const Models = {
   Article: db.model('Article', articleSchema),
   Tag: db.model('TagList', tagSchema),
-  User: db.model('User', userSchema)
+  User: db.model('User', userSchema),
+  Fans: db.model('Fans', fansSchema)
 }
 
 module.exports = Models

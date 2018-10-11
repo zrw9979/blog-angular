@@ -3,6 +3,7 @@ const fs = require('fs')
 const path = require('path')
 const DB = require('../models')
 const users = require('../users/index').items
+const nodemailer = require('nodemailer')
 
 const findUser = (name, password) => {
 	return users.find((item) => {
@@ -57,7 +58,6 @@ router.post('/addUser', async (ctx, next) => {
       ctx.throw(500)
       return
     }
-    console.log(data)
     ctx.response.body = {
       code: 200,
       msg: '修改成功',
@@ -102,14 +102,16 @@ router.all('*', async (ctx, next) => {
 
 // 保存文章
 router.post('/addArticle', async (ctx, next) => {
-  await new DB.Article(ctx.request.body).save((err, docs) => {
+  new DB.Article(ctx.request.body).save((err, docs) => {
     if(err){
       ctx.throw(500)
       return
     }
+    let emailResult = ''
+    // let emailResult = onSendEmail(ctx.request.body)
     ctx.response.body = {
       code: 200,
-      msg: '保存成功',
+      msg: `保存成功，邮件发送${emailResult}`,
       data: docs
     }
   })
@@ -212,6 +214,60 @@ router.post('/deleteTag', async (ctx, next) => {
     }
   })
 })
+
+const onSendEmail = (req) => {
+  console.log('on send email')
+  sendEmail(req)
+  // DB.Fans.find({}, (err, docs) => {
+  //   if (docs && docs.length > 0) {
+  //   } else {
+  //     return 'failed'
+  //   }
+  // })
+}
+
+let serveremail = {
+  user: "493143643@qq.com",
+  password: "ojhwdeiigetcbgbb",
+  service: 'qq'
+}
+
+const sendEmail = async () => {
+  console.log('send email')
+  nodemailer.createTestAccount((err, account) => {
+    // create reusable transporter object using the default SMTP transport
+    console.log(serveremail.service)
+    let transporter = nodemailer.createTransport({
+      host: serveremail.service, // 邮件服务地址 可在126后台查看
+      port: 465, // port
+      secure: true, // true for 465, false for other ports
+      auth: {
+          user: serveremail.user, // generated ethereal user
+          pass: serveremail.password // generated ethereal password
+        }
+    });
+
+    // setup email data with unicode symbols
+    let mailOptions = {
+      from: serveremail.user, // sender address  
+      to: "493143643@qq.com", // list of receivers 接收者地址
+      subject: 'Hello friend', // Subject line                      // 邮件标题
+      text: 'this is nodemailer test', // plain text body
+      html: '<b>Big test</b>' // html body   //邮件内容
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => { //发送邮件
+      if (error) {
+        return console.log(error);
+      }
+      console.log('Message sent: %s', info.messageId);//成功回调
+      console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+
+      // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+      // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+    });
+  });
+}
 
 
 module.exports = router

@@ -160,4 +160,18 @@ router.post('/articleAddUv', async (ctx, next) => {
   })
 })
 
+router.post('/addFansEmail', async (ctx, next) => {
+  await new DB.Fans(ctx.request.body).save((err, data) => {
+    if(err){
+      ctx.throw(500)
+      return
+    }
+    ctx.response.body = {
+      code: 200,
+      msg: '订阅成功',
+      data
+    }
+  })
+})
+
 module.exports = router
