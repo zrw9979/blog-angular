@@ -1,8 +1,20 @@
 <div class="tag">
+  <div id="contact" class="text-center">
+    <div class="container text-center">
+      <div class="col-md-4">
+        <h3>TAGS</h3>
+        <div class="contact-item">
+          <!-- <p>Please send</p> -->
+          <p>共{{tagList.length}}个标签</p>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="tag-item" *ngFor="let item of tagList" >
     <label for="{{item.name}}" class="catalog-contaier">
       <img src="../assets/catalog-grey.png" alt="标签">
       <span class="catalog">{{item.name}}</span>
+      共{{item.data.length}}篇
     </label>
     <input type="checkbox" id="{{item.name}}" class="checkbox">
     <ul class="article-list">

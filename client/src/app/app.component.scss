@@ -59,10 +59,28 @@
 	margin-top:5em;
 }
 
+.top-nav {
+  display: fixed;
+  background:#212022;
+}
+
+.top-nav .left-con {
+  display: inline-block;
+  color:#FFF;
+  left: 0;
+  padding:2rem 1.5rem;
+  top: 0;
+  font-weight:400;
+  font-size:1.8rem;
+}
+
 .top-nav ul{
-  position: relative;
+  position: absolute;
+  right: 0;
+  top: 0;
 	margin:0;
-	padding:0;
+  padding:0;
+  width: auto;
 	background:#212022;
 	text-align:center;
 }

@@ -47,7 +47,7 @@ export class ViewArticleComponent implements OnInit, OnDestroy {
     let currentArticle = JSON.parse(localStorage.getItem('articleDetail'));
     console.log(currentArticle)
 
-    let likeThisArticle = JSON.parse(localStorage.getItem(`like${this.articleDetail._id}`));
+    let likeThisArticle = JSON.parse(localStorage.getItem(`like${currentArticle._id}`));
     this.likeArticle = likeThisArticle ? true : false;
     
     this.articleDetail = currentArticle;
@@ -91,6 +91,7 @@ export class ViewArticleComponent implements OnInit, OnDestroy {
 
     const footer = <HTMLElement>document.querySelector('.footer');
     footer.style.display = 'block';
+    location.reload();
   }
 
   // 语法高亮
@@ -112,9 +113,13 @@ export class ViewArticleComponent implements OnInit, OnDestroy {
 
   likeThisArticle() {
     let currentArticle = JSON.parse(localStorage.getItem('articleDetail'));
+    let likeArticle = JSON.parse(localStorage.getItem(`like${this.articleDetail._id}`));
+    console.log(likeArticle)
     if (this.likeArticle) {
       localStorage.removeItem(`like${this.articleDetail._id}`);
       currentArticle.uv -= 1;
+      let like = JSON.parse(localStorage.getItem(`like${this.articleDetail._id}`));
+      console.log(like)
       this.http.post('/api/client/articleAddUv', currentArticle).subscribe((res) => {
         this.likeArticle = false;
         this.articleDetail = currentArticle;
@@ -124,6 +129,8 @@ export class ViewArticleComponent implements OnInit, OnDestroy {
     } else {
       localStorage.setItem(`like${this.articleDetail._id}`, 'true');
       currentArticle.uv += 1;
+      let like = JSON.parse(localStorage.getItem(`like${this.articleDetail._id}`));
+      console.log(like)
       this.http.post('/api/client/articleAddUv', currentArticle).subscribe((res) => {
         this.likeArticle = true;
         this.articleDetail = currentArticle;

@@ -1,17 +1,17 @@
 <div class="top-bar">
-  <div class="header">
+  <!-- <div class="header">
     <div class="container">
-      <!-- <div class="logos">
-        <a href="index.html"><img src="images/logo.png" alt=""></a>
-      </div> -->
       <div class="callbacks_container">
         <h2>{{ blogName || "XXX's Blog" }}</h2>
         <p>欢迎</p>
       </div>
     </div>
-  </div>
+  </div> -->
   
   <div class="top-nav">
+    <div class="left-con">
+       {{ blogName || "XXX's Blog" }}
+    </div>
     <ul>
       <li (click)="search()">
         <a [routerLink]="['/search']" routerLinkActive="router-active">

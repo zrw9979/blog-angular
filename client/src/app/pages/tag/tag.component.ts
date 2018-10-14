@@ -56,6 +56,7 @@ export class TagComponent implements OnInit, OnDestroy {
         });
       }
     });
+    console.log(this.tagList)
   }
 
   viewArticle(data) {
