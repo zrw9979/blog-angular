@@ -38,48 +38,59 @@ export class ViewArticleComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    const id = window.location.href.split('/view/')[1]
+    console.log(id)
     this.activatedRoute.params.subscribe((params) => {
-      this.articleId = params.id;
+      this.articleId = id || params.id;
+      console.log(this.articleId)
     });
     const topBar = <HTMLElement>document.querySelector('.top-bar');
     topBar.style.display = 'none';
 
+    let articleById
+
     let currentArticle = JSON.parse(localStorage.getItem('articleDetail'));
     console.log(currentArticle)
 
-    let likeThisArticle = JSON.parse(localStorage.getItem(`like${currentArticle._id}`));
-    this.likeArticle = likeThisArticle ? true : false;
-    
-    this.articleDetail = currentArticle;
-    if (this.articleDetail === null) {
-      this.articleServiceSub = this.articleService.allArticle$.subscribe((data) => {
-        data.forEach((item: ArticleDetail) => {
-          if (item._id === this.articleId) {
-            this.articleDetail = item;
-            this.renderHighlight();
-            this.renderGitment();
-          }
+    this.http.post('/api/client/searchById', { search: this.articleId })
+      .subscribe((res) => {
+        articleById = res['data'][0]
+        console.log(articleById)
+         
+        this.articleDetail = articleById ? articleById : currentArticle;
+        let likeThisArticle = JSON.parse(localStorage.getItem(`like${this.articleDetail._id}`));
+        console.log(likeThisArticle)
+        this.likeArticle = likeThisArticle ? true : false;
+        if (this.articleDetail === null) {
+          this.articleServiceSub = this.articleService.allArticle$.subscribe((data) => {
+            data.forEach((item: ArticleDetail) => {
+              if (item._id === this.articleId) {
+                this.articleDetail = item;
+                this.renderHighlight();
+                this.renderGitment();
+              }
+            });
+          });
+        } else {
+          this.http.post('/api/client/articleAddPv', currentArticle).subscribe((res) => {
+            console.log(res)
+          });
+          this.renderHighlight();
+          this.renderGitment();
+        }
+
+        const progressBar = <HTMLElement>document.querySelector('.progress-bar');
+        document.querySelector('.view-article-wrap').scrollTop = 0;
+        document.querySelector('.view-article-wrap').addEventListener('scroll', () => {
+          const scrollHeight = document.querySelector('.view-article-wrap').scrollHeight - window.innerHeight; // 滚动高度
+          const scrollTop = document.querySelector('.view-article-wrap').scrollTop; // 滚动内容距离顶部的高度
+          const percentage = (scrollTop / scrollHeight) * 100;
+          progressBar.style.width = percentage + 'vw';
         });
-      });
-    } else {
-      this.http.post('/api/client/articleAddPv', currentArticle).subscribe((res) => {
-        console.log(res)
-      });
-      this.renderHighlight();
-      this.renderGitment();
-    }
 
-    const progressBar = <HTMLElement>document.querySelector('.progress-bar');
-    document.querySelector('.view-article-wrap').scrollTop = 0;
-    document.querySelector('.view-article-wrap').addEventListener('scroll', () => {
-      const scrollHeight = document.querySelector('.view-article-wrap').scrollHeight - window.innerHeight; // 滚动高度
-      const scrollTop = document.querySelector('.view-article-wrap').scrollTop; // 滚动内容距离顶部的高度
-      const percentage = (scrollTop / scrollHeight) * 100;
-      progressBar.style.width = percentage + 'vw';
-    });
-
-    const footer = <HTMLElement>document.querySelector('.footer');
-    footer.style.display = 'none';
+        const footer = <HTMLElement>document.querySelector('.footer');
+        footer.style.display = 'none';
+      });
   }
 
   ngOnDestroy() {

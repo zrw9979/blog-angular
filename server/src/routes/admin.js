@@ -102,28 +102,19 @@ router.all('*', async (ctx, next) => {
 
 // 保存文章
 router.post('/addArticle', async (ctx, next) => {
-  let emailResult = await onSendEmail(ctx.request.body)
-  if (!emailResult) {
-    ctx.throw(500)
-    return
-  }
-  ctx.response.body = {
-    code: 200,
-    msg: `保存成功，邮件发送${emailResult}`,
-    data: docs
-  }
-  // new DB.Article(ctx.request.body).save((err, docs) => {
-  //   if(err){
-  //     ctx.throw(500)
-  //     return
-  //   }
-  //   let emailResult = ''
-  //   ctx.response.body = {
-  //     code: 200,
-  //     msg: `保存成功，邮件发送${emailResult}`,
-  //     data: docs
-  //   }
-  // })
+  new DB.Article(ctx.request.body).save((err, docs) => {
+    if(err){
+      ctx.throw(500)
+      return
+    }
+    ctx.response.body = {
+      code: 200,
+      msg: `保存成功，邮件正在发送`,
+      data: docs
+    }
+    console.log(docs)
+    onSendEmail(docs)
+  })
 })
 
 // 删除文章
@@ -257,13 +248,15 @@ const sendEmail = async (req, receivers) => {
         }
     });
 
+    console.log(req)
+
     // setup email data with unicode symbols
     let mailOptions = {
       from: serveremail.user, // sender address  
       to: receivers.join(', '), // list of receivers 接收者地址
-      subject: 'Hello friend', // Subject line                      // 邮件标题
-      text: 'this is nodemailer test', // plain text body
-      html: '<b>Big test</b>' // html body   //邮件内容
+      subject: '你訂閱的博客更新啦', // Subject line                      // 邮件标题
+      text: '我的博客更新了，詳情見', // plain text body
+      html: `<a href="http://localhost:4100/view/${req._id}">點擊跳轉</a>，如果跳轉失敗直接搜索http://localhost:4100/view/${req._id}` // html body   //邮件内容
     };
 
     transporter.sendMail(mailOptions, (error, info) => { //发送邮件

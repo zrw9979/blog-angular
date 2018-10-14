@@ -120,6 +120,26 @@ router.post('/searchTitle', async (ctx, next) => {
   }
 })
 
+router.post('/searchById', async (ctx, next) => {
+  try {
+    let search = ctx.request.body.search;
+    let res = await DB.Article.find({ _id: ctx.request.body.search })
+    if (res) {
+      ctx.response.body = {
+        code: 200,
+        msg: 'msg',
+        data: res
+      }
+    } else {
+      ctx.throw(500)
+      return;
+    }
+  } catch (e) {
+    breakError = true
+    console.log(e.message)
+  }
+})
+
 router.post('/articleAddPv', async (ctx, next) => {
   await new Promise((resolve, reject) => {
     DB.Article.update({
