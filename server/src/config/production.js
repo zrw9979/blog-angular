@@ -4,6 +4,6 @@
 
 module.exports = {
   env: 'production', //环境名称
-  port: 3001,         //服务端口号
-  mongodb_url: 'mongodb://localhost:27017/blogPro',    //数据库地址
+  port: 9979,         //服务端口号
+  mongodb_url: 'mongodb://120.78.66.248:27017/blogPro',    //数据库地址
 }

@@ -40,7 +40,7 @@ export class AppComponent {
       });
   }
 
-  home() {
+  list() {
     this.router.navigate(['/home']);
     this.dropdownMenu.state = 'inactive';
   }

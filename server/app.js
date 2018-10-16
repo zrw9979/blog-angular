@@ -38,7 +38,7 @@ app.use(cors())
 app.use(bodyParser())
 app.use(router.routes())
 
-app.listen(config.port || 3001, ()=> {
-  console.log('监听端口:' + config.port || 3001)
+app.listen(9979, '0.0.0.0', ()=> {
+  console.log('监听端口:' + 9979)
   console.log("环境变量是:" + process.env.NODE_ENV);
 })

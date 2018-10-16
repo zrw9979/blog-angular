@@ -7,7 +7,14 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./about.component.scss']
 })
 export class AboutComponent implements OnInit {
-  user = {};
+  user = {
+    name: 'root',
+    pwd: '123456',
+    blogname: '',
+    github: '',
+    email: '',
+    phone: ''
+  };
   email = '';
 
   constructor(
